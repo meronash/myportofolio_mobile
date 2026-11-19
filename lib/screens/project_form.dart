@@ -149,6 +149,17 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
                       _projectLink = value!;
                     });
                   },
+                  validator: (value) {
+                    final link = value?.trim() ?? "";
+                    if (link.isEmpty) {
+                      return null;
+                    }
+                    final uri = Uri.tryParse(link);
+                    if (uri == null || !uri.hasScheme || !['http', 'https'].contains(uri.scheme) || uri.host.isEmpty) {
+                      return "Masukkan URL yang valid (http:// atau https://)!";
+                    }
+                    return null;
+                  },
                 ),
               ),
               // === Tombol Simpan ===
