@@ -31,8 +31,8 @@ class _EducationFormPageState extends State<EducationFormPage> {
 
   Future<void> _pickDate({required bool isStart}) async {
     final picked = await showDatePicker(
-      context: context, 
-      initialDate: (isStart ? _startedAt : _endedAt) ?? DateTime.now(), 
+      context: context,
+      initialDate: (isStart ? _startedAt : _endedAt) ?? DateTime.now(),
       firstDate: DateTime(1950),
       lastDate: DateTime(2100),
     );
@@ -52,11 +52,7 @@ class _EducationFormPageState extends State<EducationFormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text(
-            'Add Education Form',
-          ),
-        ),
+        title: const Center(child: Text('Add Education Form')),
         backgroundColor: Colors.indigo,
         foregroundColor: Colors.white,
       ),
@@ -67,7 +63,7 @@ class _EducationFormPageState extends State<EducationFormPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // === Education institution ===
+              // === institution ===
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
@@ -94,7 +90,7 @@ class _EducationFormPageState extends State<EducationFormPage> {
                   },
                 ),
               ),
-              // === Degree ===     
+              // === Degree ===
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
@@ -146,7 +142,7 @@ class _EducationFormPageState extends State<EducationFormPage> {
                   },
                 ),
               ),
-              // === Start Data ===
+              // === Start Date ===
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
@@ -163,12 +159,13 @@ class _EducationFormPageState extends State<EducationFormPage> {
                   onTap: () => _pickDate(isStart: true),
                   validator: (String? value) {
                     if (value == null || value.isEmpty) {
-                      return "Tanggal mulai tidak boleh kosong";
+                      return "Tanggal mulai tidak boleh kosong!";
                     }
                     return null;
                   },
                 ),
               ),
+              // === End Date (opsional) ===
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
@@ -208,7 +205,9 @@ class _EducationFormPageState extends State<EducationFormPage> {
                           context: context,
                           builder: (context) {
                             return AlertDialog(
-                              title: const Text('Pendidikan berhasil ditambahkan!'),
+                              title: const Text(
+                                'Pendidikan berhasil ditambahkan!',
+                              ),
                               content: SingleChildScrollView(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -216,8 +215,12 @@ class _EducationFormPageState extends State<EducationFormPage> {
                                     Text('Nama Institusi: $_institution'),
                                     Text('Jenjang Pendidikan: $_degree'),
                                     Text('Deskripsi: $_description'),
-                                    Text('Tanggal Mulai: ${_formatDate(_startedAt!)}'),
-                                    Text('Tanggal Selesai: ${_endedAt == null ? "-" : _formatDate(_endedAt!)}'),
+                                    Text(
+                                      'Tanggal Mulai: ${_formatDate(_startedAt!)}',
+                                    ),
+                                    Text(
+                                      'Tanggal Selesai: ${_endedAt == null ? "-" : _formatDate(_endedAt!)}',
+                                    ),
                                   ],
                                 ),
                               ),
