@@ -17,6 +17,37 @@ class _EducationFormPageState extends State<EducationFormPage> {
   DateTime? _startedAt;
   DateTime? _endedAt;
 
+  final _startedAtController = TextEditingController();
+  final _endedAtController = TextEditingController();
+
+  @override
+  void dispose() {
+    _startedAtController.dispose();
+    _endedAtController.dispose();
+    super.dispose();
+  }
+
+  String _formatDate(DateTime date) => date.toIso8601String().substring(0, 10);
+
+  Future<void> _pickDate({required bool isStart}) async {
+    final picked = await showDatePicker(
+      context: context, 
+      initialDate: (isStart ? _startedAt : _endedAt) ?? DateTime.now(), 
+      firstDate: DateTime(1950),
+      lastDate: DateTime(2100),
+    );
+    if (picked == null || !mounted) return;
+    setState(() {
+      if (isStart) {
+        _startedAt = picked;
+        _startedAtController.text = _formatDate(picked);
+      } else {
+        _endedAt = picked;
+        _endedAtController.text = _formatDate(picked);
+      }
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,6 +146,53 @@ class _EducationFormPageState extends State<EducationFormPage> {
                   },
                 ),
               ),
+              // === Start Data ===
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  controller: _startedAtController,
+                  readOnly: true,
+                  decoration: InputDecoration(
+                    hintText: "Tanggal Mulai",
+                    labelText: "Tanggal Mulai",
+                    suffixIcon: const Icon(Icons.calendar_today),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
+                  onTap: () => _pickDate(isStart: true),
+                  validator: (String? value) {
+                    if (value == null || value.isEmpty) {
+                      return "Tanggal mulai tidak boleh kosong";
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: TextFormField(
+                  controller: _endedAtController,
+                  readOnly: true,
+                  decoration: InputDecoration(
+                    hintText: "Tanggal Selesai (opsional)",
+                    labelText: "Tanggal Selesai",
+                    suffixIcon: const Icon(Icons.calendar_today),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(5.0),
+                    ),
+                  ),
+                  onTap: () => _pickDate(isStart: false),
+                  validator: (String? value) {
+                    final start = _startedAt;
+                    final end = _endedAt;
+                    if (start != null && end != null && end.isBefore(start)) {
+                      return "Tanggal selesai tidak boleh sebelum tanggal mulai!";
+                    }
+                    return null;
+                  },
+                ),
+              ),
               // === Tombol Simpan ===
               Align(
                 alignment: Alignment.bottomCenter,
@@ -138,6 +216,8 @@ class _EducationFormPageState extends State<EducationFormPage> {
                                     Text('Nama Institusi: $_institution'),
                                     Text('Jenjang Pendidikan: $_degree'),
                                     Text('Deskripsi: $_description'),
+                                    Text('Tanggal Mulai: ${_formatDate(_startedAt!)}'),
+                                    Text('Tanggal Selesai: ${_endedAt == null ? "-" : _formatDate(_endedAt!)}'),
                                   ],
                                 ),
                               ),
@@ -147,6 +227,8 @@ class _EducationFormPageState extends State<EducationFormPage> {
                                   onPressed: () {
                                     Navigator.pop(context);
                                     _formKey.currentState!.reset();
+                                    _startedAt = null;
+                                    _endedAt = null;
                                   },
                                 ),
                               ],
