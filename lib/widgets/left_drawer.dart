@@ -11,9 +11,9 @@ class LeftDrawer extends StatelessWidget {
     return Drawer(
       child: ListView(
         children: [
-          const DrawerHeader(
-            decoration: BoxDecoration(color: Colors.indigo),
-            child: Column(
+          DrawerHeader(
+            decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary),
+            child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(

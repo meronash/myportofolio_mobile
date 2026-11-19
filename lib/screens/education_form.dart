@@ -53,8 +53,8 @@ class _EducationFormPageState extends State<EducationFormPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Center(child: Text('Add Education Form')),
-        backgroundColor: Colors.indigo,
-        foregroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
       ),
       drawer: const LeftDrawer(),
       body: Form(

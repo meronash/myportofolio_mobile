@@ -30,8 +30,8 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Center(child: Text('Add Project Form')),
-        backgroundColor: Colors.indigo,
-        foregroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
       ),
       drawer: const LeftDrawer(),
       body: Form(
