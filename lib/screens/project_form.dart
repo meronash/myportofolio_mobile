@@ -29,13 +29,9 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text(
-            'Add Project Form',
-          ),
-        ),
-        backgroundColor: Colors.indigo,
-        foregroundColor: Colors.white,
+        title: const Center(child: Text('Add Project Form')),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
       ),
       drawer: const LeftDrawer(),
       body: Form(
@@ -105,10 +101,12 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
                   ),
                   initialValue: _category,
                   items: _categories
-                      .map((category) => DropdownMenuItem(
-                            value: category,
-                            child: Text(category),
-                          ))
+                      .map(
+                        (category) => DropdownMenuItem(
+                          value: category,
+                          child: Text(category),
+                        ),
+                      )
                       .toList(),
                   onChanged: (String? newValue) {
                     setState(() {
@@ -151,6 +149,17 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
                       _projectLink = value!;
                     });
                   },
+                  validator: (value) {
+                    final link = value?.trim() ?? "";
+                    if (link.isEmpty) {
+                      return null;
+                    }
+                    final uri = Uri.tryParse(link);
+                    if (uri == null || !uri.hasScheme || !['http', 'https'].contains(uri.scheme) || uri.host.isEmpty) {
+                      return "Masukkan URL yang valid (http:// atau https://)!";
+                    }
+                    return null;
+                  },
                 ),
               ),
               // === Tombol Simpan ===
@@ -187,6 +196,14 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
                                   onPressed: () {
                                     Navigator.pop(context);
                                     _formKey.currentState!.reset();
+
+                                    setState(() {
+                                      _projectName = "";
+                                      _description = "";
+                                      _category = "Web Development";
+                                      _technologies = "";
+                                      _projectLink = "";
+                                    });
                                   },
                                 ),
                               ],
