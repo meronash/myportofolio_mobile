@@ -31,7 +31,7 @@ class ItemCard extends StatelessWidget {
           } else if (item.name == "Tambah Pendidikan") {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (context) => const ProjectFormPage()),
+              MaterialPageRoute(builder: (context) => const EducationFormPage()),
             );
           }
         },
