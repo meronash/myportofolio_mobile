@@ -17,9 +17,7 @@ class ItemCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final isLoggedIn = context.watch<AuthState>().isLoggedIn;
 
-    final itemName = item.name == "Logout" && !isLoggedIn
-      ? "Login"
-      : item.name;
+    final itemName = item.name == "Logout" && !isLoggedIn ? "Login" : item.name;
 
     return Material(
       // Warna latar berasal dari atribut color pada ItemHomepage.
@@ -37,14 +35,12 @@ class ItemCard extends StatelessWidget {
             );
           } else if (item.name == "Tambah Proyek") {
             final allowed = await ensureLoggedIn(context);
-            
+
             if (!context.mounted || !allowed) return;
 
             Navigator.push(
               context,
-              MaterialPageRoute(
-                builder: (context) => const ProjectFormPage(),
-              ),
+              MaterialPageRoute(builder: (context) => const ProjectFormPage()),
             );
           } else if (item.name == "Tambah Pendidikan") {
             Navigator.push(
@@ -60,39 +56,34 @@ class ItemCard extends StatelessWidget {
               if (!context.mounted) return;
 
               ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                const SnackBar(content: Text("Logout Successful!"),
-                ),
-              );
+                ..hideCurrentSnackBar()
+                ..showSnackBar(
+                  const SnackBar(content: Text("Logout Successful!")),
+                );
             } else {
               final loggedIn = await Navigator.push<bool>(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const LoginScreen(),
-                ),
+                MaterialPageRoute(builder: (context) => const LoginScreen()),
               );
 
               if (!context.mounted) return;
 
               if (loggedIn == true) {
                 ScaffoldMessenger.of(context)
-                ..hideCurrentSnackBar()
-                ..showSnackBar(
-                  const SnackBar(
-                    content: Text("Login Successful!"),
-                  ),
-                );
+                  ..hideCurrentSnackBar()
+                  ..showSnackBar(
+                    const SnackBar(content: Text("Login Successful!")),
+                  );
               }
             }
           } else {
             ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Text("You have pressed the $itemName button!"),
-              ),
-            );
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(
+                  content: Text("You have pressed the $itemName button!"),
+                ),
+              );
           }
         },
         child: Container(
@@ -103,8 +94,8 @@ class ItemCard extends StatelessWidget {
               children: [
                 Icon(
                   item.name == "Logout" && !isLoggedIn
-                    ? Icons.login
-                    : item.icon,
+                      ? Icons.login
+                      : item.icon,
                   color: Colors.white,
                   size: 30.0,
                 ),

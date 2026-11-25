@@ -4,17 +4,12 @@ import 'package:myportofolio_mobile/models/project.dart';
 class ProjectDetailScreen extends StatelessWidget {
   final Project project;
 
-  const ProjectDetailScreen({
-    super.key,
-    required this.project,
-  });
+  const ProjectDetailScreen({super.key, required this.project});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(project.title),
-      ),
+      appBar: AppBar(title: Text(project.title)),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -48,26 +43,17 @@ class ProjectDetailScreen extends StatelessWidget {
 
             const SizedBox(height: 12),
 
-            Text(
-              'Tech Stack',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
+            Text('Tech Stack', style: Theme.of(context).textTheme.titleMedium),
             Text(project.techStack),
 
             const SizedBox(height: 16),
 
-            Text(
-              'Description',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
+            Text('Description', style: Theme.of(context).textTheme.titleMedium),
             Text(project.description),
 
             const SizedBox(height: 16),
 
-            Text(
-              'Project URL',
-              style: Theme.of(context).textTheme.titleMedium,
-            ),
+            Text('Project URL', style: Theme.of(context).textTheme.titleMedium),
             SelectableText(project.projectUrl),
           ],
         ),

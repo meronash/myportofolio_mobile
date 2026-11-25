@@ -73,21 +73,19 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
           final projects = snapshot.data ?? const <Project>[];
           if (projects.isEmpty) {
             return RefreshIndicator(
-              onRefresh: _reload, 
+              onRefresh: _reload,
               child: ListView(
                 physics: const AlwaysScrollableScrollPhysics(),
                 children: const [
                   SizedBox(height: 250),
-                  Center(
-                    child: Text('No projects found.'),
-                  ),
+                  Center(child: Text('No projects found.')),
                 ],
               ),
             );
           }
 
           return RefreshIndicator(
-            onRefresh: _reload, 
+            onRefresh: _reload,
             child: ListView.builder(
               physics: const AlwaysScrollableScrollPhysics(),
               itemCount: projects.length,
@@ -113,9 +111,10 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
                     trailing: const Icon(Icons.arrow_forward_ios),
                     onTap: () {
                       Navigator.push(
-                        context, 
+                        context,
                         MaterialPageRoute(
-                          builder: (context) => ProjectDetailScreen(project: project),
+                          builder: (context) =>
+                              ProjectDetailScreen(project: project),
                         ),
                       );
                     },

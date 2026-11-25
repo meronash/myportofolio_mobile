@@ -17,7 +17,9 @@ class LeftDrawer extends StatelessWidget {
       child: ListView(
         children: [
           DrawerHeader(
-            decoration: BoxDecoration(color: Theme.of(context).colorScheme.primary),
+            decoration: BoxDecoration(
+              color: Theme.of(context).colorScheme.primary,
+            ),
             child: const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -38,34 +40,30 @@ class LeftDrawer extends StatelessWidget {
             ),
           ),
           if (!isLoggedIn)
-          ListTile(
+            ListTile(
               leading: const Icon(Icons.login),
               title: const Text('Login'),
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => const LoginScreen(),
-                  ),
+                  MaterialPageRoute(builder: (context) => const LoginScreen()),
                 );
               },
             ),
           if (isLoggedIn)
-          ListTile(
-            leading: const Icon(Icons.logout),
-            title: const Text('Logout'),
-            onTap: () async {
-              await context.read<AuthState>().logout();
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text('Logout'),
+              onTap: () async {
+                await context.read<AuthState>().logout();
 
-              if (!context.mounted) return;
+                if (!context.mounted) return;
 
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text('Logout berhasil'),
-                ),
-              );
-            },
-          ),
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Logout berhasil')),
+                );
+              },
+            ),
           ListTile(
             leading: const Icon(Icons.home_outlined),
             title: const Text('Home'),

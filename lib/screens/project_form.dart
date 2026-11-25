@@ -1,4 +1,3 @@
-
 import 'package:material_ui/material_ui.dart';
 import 'package:myportofolio_mobile/widgets/left_drawer.dart';
 import 'package:myportofolio_mobile/models/project.dart';
@@ -74,10 +73,7 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
       );
 
       // Kirim data proyek ke Django API.
-      await context.read<ApiClient>().createProject(
-        newProject,
-        token: token,
-      );
+      await context.read<ApiClient>().createProject(newProject, token: token);
 
       if (!mounted) return;
 
@@ -87,9 +83,7 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
         builder: (dialogContext) {
           return AlertDialog(
             title: const Text("Berhasil!"),
-            content: const Text(
-              "Proyek berhasil ditambahkan.",
-            ),
+            content: const Text("Proyek berhasil ditambahkan."),
             actions: [
               TextButton(
                 onPressed: () {
@@ -117,19 +111,14 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
 
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(
-            "Gagal menambahkan proyek. Status: ${e.statusCode}",
-          ),
+          content: Text("Gagal menambahkan proyek. Status: ${e.statusCode}"),
         ),
       );
     } catch (e) {
       if (!mounted) return;
 
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Terjadi kesalahan: $e"),
-        ),
-      );
+      ScaffoldMessenger.of(context)
+          .showSnackBar(SnackBar(content: Text("Terjadi kesalahan: $e")));
     } finally {
       if (mounted) {
         setState(() {
@@ -143,9 +132,7 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Center(
-          child: Text('Add Project Form'),
-        ),
+        title: const Center(child: Text('Add Project Form')),
         backgroundColor: Theme.of(context).colorScheme.primary,
         foregroundColor: Theme.of(context).colorScheme.onPrimary,
       ),
@@ -273,14 +260,11 @@ class _ProjectFormPageState extends State<ProjectFormPage> {
                   padding: const EdgeInsets.all(8.0),
                   child: ElevatedButton(
                     style: ButtonStyle(
-                      backgroundColor:
-                          WidgetStateProperty.all(Colors.indigo),
+                      backgroundColor: WidgetStateProperty.all(Colors.indigo),
                     ),
                     onPressed: _isSubmitting ? null : _submit,
                     child: _isSubmitting
-                        ? const CircularProgressIndicator(
-                            color: Colors.white,
-                          )
+                        ? const CircularProgressIndicator(color: Colors.white)
                         : const Text(
                             "Save",
                             style: TextStyle(color: Colors.white),
