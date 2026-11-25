@@ -230,7 +230,7 @@ class _EducationFormPageState extends State<EducationFormPage> {
                                   onPressed: () {
                                     Navigator.pop(context);
                                     _formKey.currentState!.reset();
-                                    
+
                                     setState(() {
                                       _institution = "";
                                       _degree = "";
