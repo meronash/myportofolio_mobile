@@ -23,10 +23,16 @@ class _ProjectListScreenState extends State<ProjectListScreen> {
 
   Future<void> _reload() async {
     final future = context.read<ApiClient>().getProjects();
+
     setState(() {
       _projectsFuture = future;
     });
-    await future;
+
+    try {
+      await future;
+    } catch (_) {
+      // Error ditampilkan oleh FutureBuilder.
+    }
   }
 
   @override
